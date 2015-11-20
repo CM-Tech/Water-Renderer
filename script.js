@@ -48,8 +48,7 @@ var initialize = (function() {
     var col = 0;
     $("#canvas").attr("width", $("body").width());
     $("#canvas").attr("height", $("body").height());
-    //clickControl({layerX:0.5,layerY:32,buttons:1});
-    RANGE2 = SPH.RANGE * SPH.RANGE;
+	RANGE2 = SPH.RANGE * SPH.RANGE;
     var DENSITY = 0.2;
     var NUM_GRIDSX = Math.floor(w / 70);
     var NUM_GRIDSY = Math.floor(h / 70);
@@ -87,32 +86,6 @@ var initialize = (function() {
     }
 
     function draw() {
-        /*for(var x=0;x<w;x++){
-            var col=[];
-            for(var y=0;y<h;y++){
-                col[y]=0;
-            }
-            pixelArray[x]=col;
-        }
-         for (var i = 0; i < numParticles; i++) {
-             var p = particles[i];
-             
-         }*/
-        //var maxDensity=0;
-        /*ctx.fillStyle="blue";
-        ctx.strokeStyle="blue";
-        for (var i = 0; i < numParticles; i++) {
-            var p = particles[i];
-            ctx.fillStyle="white";
-        ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size/2+2, 0, 2 * Math.PI, false);
-      //var color=HSVtoRGB(Math.sqrt(p.density*4),1,1);
-     //ctx.fillStyle="rgb("+color.r+","+color.g+","+color.b+")";
-     //maxDensity=Math.max(maxDensity,p.density);
-      ctx.fill();
-  
-            
-        }*/
         ctx.save();
         ctx.globalCompositeOperation = 'normal';
         for (var i = 0; i < numParticles; i++) {
@@ -123,14 +96,11 @@ var initialize = (function() {
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size / 2, 0, 2 * Math.PI, false);
             var color = HSVtoRGB(0.7, 1, 1.5 - Math.sqrt(p.density * 2));
-            //color=HSVtoRGB(0.6,1,p.size/50);
             color = HSVtoRGB(Math.sqrt(p.density * 4), 1, 0.5);
             ctx.fillStyle = "hsl(" + Math.sqrt(p.density * 4) * 360 + ",100%,50%)";
             grd.addColorStop(0, "rgba(" + color.r + "," + color.g + "," + color.b + ",01)");
             grd.addColorStop(1, "rgba(" + color.r + "," + color.g + "," + color.b + ",0)");
             ctx.fillStyle = grd;
-            //maxDensity=Math.max(maxDensity,p.density);
-
             ctx.fill();
 
         }
@@ -149,47 +119,17 @@ var initialize = (function() {
             grd.addColorStop(0, "rgba(" + color.r + "," + color.g + "," + color.b + ",01)");
             grd.addColorStop(1, "rgba(" + color.r + "," + color.g + "," + color.b + ",0)");
             ctx.fillStyle = grd;
-            //maxDensity=Math.max(maxDensity,p.density);
 
             ctx.fill();
 
         }
         ctx.globalCompositeOperation = 'normal';
-        /* for (var i = 0; i < neighbors.length; i++) {
-            var pair = neighbors[i];
-            ctx.beginPath();
-            ctx.lineCap="round";
-            var grd=ctx.createLinearGradient(pair.p1.x,pair.p1.y, pair.p2.x,pair.p2.y);
-            grd.addColorStop(0,"hsl("+Math.sqrt(pair.p1.density*4)*360+",100%,50%)");
-            grd.addColorStop(1,"hsl("+Math.sqrt(pair.p2.density*4)*360+",100%,50%)");
-            ctx.strokeStyle=grd;
-            var deg=Math.atan2(pair.nx, -pair.ny);
-            ctx.lineWidth=(250)/pair.distance;
-            ctx.moveTo(pair.p1.x-Math.cos(deg+Math.PI)*(pair.p1.size-ctx.lineWidth)/2,
-            pair.p1.y-Math.sin(deg+Math.PI)*(pair.p1.size-ctx.lineWidth)/2);
-            
-            
-            ctx.quadraticCurveTo(pair.p1.x/2+pair.p2.x/2,pair.p1.y/2+pair.p2.y/2,pair.p2.x-Math.cos(deg+Math.PI)*8, pair.p2.y-Math.sin(deg+Math.PI)*8);
-            //ctx.moveTo(pair.p1.x,pair.p1.y);
-            //ctx.lineTo(pair.p2.x,pair.p2.y);
-            ctx.stroke();
-        }*/
         ctx.restore();
-        //ctx.fillStyle="rgba(0,0,255,"+maxDensity*2+")";
-        //return maxDensity;
 
     }
 
     function pour() {
         if (count % 5 == 0) {
-            /*for (var i = -10; i <= 10; i++) {
-                for (var j = -10; j <= 10; j++) {
-                    if(j*j+i*i<16){
-                var p = new Particle(mouseX + i * 10, mouseY+j*10);
-                p.vy = 3;
-                particles[numParticles++] = p;
-                    }
-            */
             var p = new Particle(mouseX, mouseY);
             p.vy = 3;
             particles[numParticles++] = p;
@@ -206,9 +146,6 @@ var initialize = (function() {
 
     function move(d) {
         count++;
-        //var i;
-        //var p;
-
         for (var i = 0; i < numParticles; i++) {
             var p = particles[i];
             for (var j = 0; j < d; j++) {
@@ -302,13 +239,6 @@ var initialize = (function() {
             }
             pixelArray[x] = col;
         }
-        for (var y = 25; y < 250; y += 25) {
-            for (var x = 25; x < w - 25; x += 25) {
-                var p = new Particle(x + ((y % 50) / 25) * 12, h - y);
-                p.vy = 0;
-                particles[numParticles++] = p;
-            }
-        }
         window.addEventListener('mouseup', function(e) {
             press = false;
         }, false);
@@ -337,38 +267,17 @@ Particle.prototype = {
         var _y1 = 0;
         var _x1 = 0;
         var _d = 0;
-        /*( for (j = 0; j < n; j++) {
-
-                        var part = particles[j];
-                        if (this!=part) {
-                            _x1 = part.x - this.x;
-                            _y1 = part.y - this.y;
-                            _d = 1 / (_x1 * _x1 + _y1 * _y1);
-                            this.dx += _x1 * _d;
-                            this.dy += _y1 * _d;
-                        }
-                        this.x += this.dx * speed;
-                        this.y += this.dy * speed;
-
-                    }*/
+        
         _x1 = mouseX - this.x;
         _y1 = mouseY - this.y;
         _d = 0.5 / (_x1 * _x1 + _y1 * _y1);
-        if ((_x1 * _x1 + _y1 * _y1) > 312.5) {
-            //this.vx += _x1 * _d;
-            //this.vy += _y1 * _d;
-        }
         _x1 = w / 2 - this.x;
         _y1 = h / 2 - this.y;
 
         _d = 0.5 / (_x1 * _x1 + _y1 * _y1);
-        if ((_x1 * _x1 + _y1 * _y1) > 312.5) {
-            //this.vx += _x1 * _d;
-            //this.vy += _y1 * _d;
-        }
         this.vy += SPH.GRAVITY;
-        this.vx += this.fx; //+Math.random()*0.1-0.05;
-        this.vy += this.fy; //+Math.random()*0.1-0.05;
+        this.vx += this.fx; 
+        this.vy += this.fy; 
         this.x += this.vx;
         this.y += this.vy;
         if (this.x < 10)
@@ -379,10 +288,6 @@ Particle.prototype = {
             this.vx += (w - this.x) * 0.5 - this.vx * 0.5;
         if (this.y > h)
             this.vy += (h - this.y) * 0.5 - this.vy * 0.5;
-
-        //this.size+=0.05*(125-(h-this.y))/125;
-        //this.size=Math.max(Math.min(this.size,75),25);
-
     }
 };
 
