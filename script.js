@@ -25,9 +25,9 @@ var RANGE2;
 var w = $("body").width();
 var h = $("body").height();
 var SPH = {
-    GRAVITY: 0.05,
+    GRAVITY: 0.0125,
     RANGE: 10,
-    PRESSURE: 0.5,
+    PRESSURE: 0.125,
     VISCOSITY: 0.05
 };
 $("body").keydown(function(event) {
@@ -82,9 +82,10 @@ var initialize = (function() {
 
         var tempDelta = delta + 0;
         delta = 0;
-
+calc();
         ctx.clearRect(0, 0, w, h);
         var d = draw();
+        ;
         ctx.font = "30px Arial";
         ctx.fillText("" + SPH.RANGE, 10, 30);
 
@@ -92,7 +93,7 @@ var initialize = (function() {
     }
 
     function draw() {
-        calc();
+        
         ctx.beginPath();
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, w, h);
@@ -281,7 +282,7 @@ var initialize = (function() {
         findNeighbors();
         calcPressure();
         calcForce();
-        move(1);
+        move(4);
     }
 
     function move(d) {
